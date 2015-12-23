@@ -12,18 +12,18 @@ module Point(length=5, base=5, h=6) {
     
 }
 
-function setPl( pointLength, inscCirc, straight) =
-    (straight)? inscCirc / 4 : pointLength;
+function setPl( pointLength, tot, straight, T) =
+    (straight)? (tot*sin(90-T))/(sin(T)+sin(90-T)) : pointLength;
 
 //Creates a star with a given number of points
 //Gap if $fn is not properly set
 //@straight: will override pointLength to make sure star appears to
 // be constructed of connected straight lines
 module Star(points=5, pointLength=5, h=6, inscCirc=24, straight=false) {
-    
-    pL = setPl(pointLength, inscCirc, straight);
-    echo(pL);
     lTheta = 180 / points;
+    pL = setPl(pointLength, inscCirc/2, straight, 2*lTheta);
+    echo(pL);
+    
     A      = (inscCirc / 2) - pL;
     radius = A / cos(lTheta);
     B      = 2*radius*sin(lTheta);
