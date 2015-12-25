@@ -3,6 +3,10 @@ This is a playground for me to store SCAD modules. etc.
 </h3>
 
 <p>Modules</p>
+<p>Listed by file name, then by module name.<br/>
+ex. <code>use &lt./Star.scad&rt;
+Star( points=5, straight=true, inscCirc= 33);</code>
+
 <ul>
     <li>Star.scad<br/>
         <strong>module Star()</strong><br/>
