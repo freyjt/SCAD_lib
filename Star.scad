@@ -24,7 +24,7 @@ function setPl( pointLength, length, straight, ang) =
 //Gap if $fn is not properly set
 //@straight: will override pointLength to make sure star appears to
 // be constructed of connected straight lines
-module Star(points=5, pointLength=5, h=6, inscCirc=24, straight=false) {
+module Star_slower(points=5, pointLength=5, h=6, inscCirc=24, straight=false) {
     
     //Precalc values that define the shape of the star
     lTheta = 180 / points;
@@ -44,10 +44,31 @@ module Star(points=5, pointLength=5, h=6, inscCirc=24, straight=false) {
 
 }
 
+//Playing around with comprehensions to speed up star drawing
+module Star( points=5, pointLength=5, h=6, inscCirc= 24, straight=false) {
+    lTheta = 180 / points;
+    pL     = setPl(pointLength, inscCirc/2, straight, 2*lTheta);
+    intRad = ((inscCirc / 2) - pL) / cos(lTheta);
+    extRad = ( inscCirc / 2);
+    
+    extPoints = [for(i = [0:points]) [ extRad * sin(2*i*lTheta), extRad * cos(2*i*lTheta) ]];
+    intPoints = [for(i = [0:points]) [intRad * sin(2*i*lTheta + lTheta),  intRad * cos(2*i*lTheta + lTheta) ]];
+    Points    = [for(i = [0:points*2]) (i%2==0) ? extPoints[i / 2] : intPoints[(i-1)/2] ];
+ 
+ 
+ 
+    linear_extrude(height = h) {
+        polygon(Points);
+    }
+  
+}
+
+
+
 $fn=29; //make sure there are no gaps in the center rendering
-Star(points=9, pointLength=11, inscCirc=24, straight=true);
+//Star(points=9, pointLength=11, inscCirc=24, straight=true);
 
 
-
+Star_faster(straight = true );
 
 
