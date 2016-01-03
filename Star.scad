@@ -45,7 +45,7 @@ module Star(points=5, pointLength=5, h=6, inscCirc=24, straight=false) {
 }
 
 $fn=29; //make sure there are no gaps in the center rendering
-Star(points=5, pointLength=11, inscCirc=24, straight=false);
+Star(points=9, pointLength=11, inscCirc=24, straight=true);
 
 
 
